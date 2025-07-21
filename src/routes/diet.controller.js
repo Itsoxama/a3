@@ -44,7 +44,7 @@ Make sure to format the response as a JSON object following this structure and f
 
         // Format and validate response (example)
         const dietPlan = {
-            userId: '67a850d7009b4b0008ab033c',
+            userId: user.user.userId,
             days: dietPlanResponse.days
         };
 
