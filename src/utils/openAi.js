@@ -6,6 +6,8 @@ const openAI = async (prompt) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+                  "Authorization": `Bearer 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`
+      
         },
         body: JSON.stringify({
             model: "gpt-3.5-turbo", // Use GPT-3.5 Turbo (affordable and effective)
