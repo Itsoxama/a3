@@ -86,6 +86,32 @@ console.log(user)
     }
 };
 
+// 🔹 Delete User (Admin only)
+const deleteUser= async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
+
+        // Check if user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Delete user
+        await User.findByIdAndDelete(userId);
+
+        return res.status(200).json({ message: "User deleted successfully" });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 const getuserinfo = async (req, res) => {
     console.log(req.body)
     try {
@@ -189,5 +215,6 @@ module.exports = {
     verifyResetToken,
     loginUserAsadmin,
     getuserinfo,
+    deleteUser,
     getall
 };
