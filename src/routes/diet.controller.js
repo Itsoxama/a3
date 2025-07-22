@@ -43,16 +43,26 @@ Make sure to format the response as a JSON object following this structure and f
         console.log('start')
 
         // Format and validate response (example)
-        const dietPlan = {
-            userId: user.user.userId,
-            days: dietPlanResponse.days
-        };
+        const dietPlanData = {
+      userId: user.user.userId,
+      days: dietPlanResponse.days,
+    };
 
-        // Save the Diet Plan in the database
-        const newDietPlan = new DietPlan(dietPlan);
-        await newDietPlan.save();
+    // Check if a diet plan already exists for this user
+    const existingPlan = await DietPlan.findOne({ userId: user.user.userId });
 
-        return res.status(200).json({ message: "Diet plan created successfully!", data: newDietPlan });
+    let savedPlan;
+    if (existingPlan) {
+      // Update the existing diet plan
+      existingPlan.days = dietPlanResponse.days;
+      savedPlan = await existingPlan.save();
+      return res.status(200).json({ message: "Diet plan updated successfully!", data: savedPlan });
+    } else {
+      // Create a new diet plan
+      const newDietPlan = new DietPlan(dietPlanData);
+      savedPlan = await newDietPlan.save();
+      return res.status(200).json({ message: "Diet plan created successfully!", data: savedPlan });
+    }
 
     } catch (error) {
         console.log(error);
