@@ -6,6 +6,7 @@ const {
     verifyResetToken, 
     loginUserAsadmin,
     getuserinfo,
+    deleteUser,
     getall
 } = require('./user.controller'); // Import modified controller
 const { verifyUserToken, verifyToken, verifyTokenAndGetUser } = require('../utils/token'); // Middleware for authentication
@@ -17,6 +18,8 @@ userRouter.post('/api/user/register', registerUser);
 
 // 🔹 User Login
 userRouter.post('/api/user/login', loginUser);
+
+userRouter.post('/api/user/delete', deleteUser);
 
 userRouter.post('/api/user/getall', getall);
 
