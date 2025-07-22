@@ -6,7 +6,7 @@ const openAI = async (prompt) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-                  "Authorization": `Bearer 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`
+                  "Authorization": `Bearer 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`
       
         },
         body: JSON.stringify({
